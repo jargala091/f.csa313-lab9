@@ -120,4 +120,32 @@ class ScholarshipCalculatorTest {
         // S11 (cfg.png): N3a=F, N4a=F, N5=F
         assertEquals(0, calc.scholarship(2.5, 5, false));
     }
+
+    // ---------- Хэсэг C: gpa()-ийн давталтын 0 / 1 / 2+ заагийн тестүүд ----------
+    // Лекц 9-ийн давталтын интервалын дүрэм. Эдгээр нь Branch/Line хамралтыг нэмэгдүүлэхгүй
+    // (gpa_null_bol_exception, gpa_hooson_massiv_bol_exception, gpa_C_D_F_salaanuudiig_hamarna,
+    // gpa_hoyor_dun_golchloh зэрэг Хэсэг A/B-ийн тестүүд аль хэдийн 100% хамралт хангасан) —
+    // гэхдээ давталтын СУДАЛГААНЫ дүрмийн дагуу тусгайлан баталгаажуулж байна: coverage-driven
+    // сонголт (аль салаа хамрагдаагүй вэ) ба interval-driven сонголт (0/1/олон удаа гүйлгэх үед
+    // юу болдог вэ) нь ӨӨР ӨӨР алдааны ангиллыг олдог тул хоёуланг нь дангаар нь хэрэглэх нь зөв.
+
+    @Test
+    void davtalt_0_udaa_hooson_massiv_exception() {
+        assertThrows(IllegalArgumentException.class, () -> calc.gpa(new double[0]));
+    }
+
+    @Test
+    void davtalt_0_udaa_null_exception() {
+        assertThrows(IllegalArgumentException.class, () -> calc.gpa(null));
+    }
+
+    @Test
+    void davtalt_1_udaa_neg_duntei() {
+        assertEquals(4.0, calc.gpa(new double[]{95}), 0.0001);
+    }
+
+    @Test
+    void davtalt_2_ba_tuunees_olon_udaa() {
+        assertEquals(2.5, calc.gpa(new double[]{95, 85, 75, 65}), 0.0001);
+    }
 }
