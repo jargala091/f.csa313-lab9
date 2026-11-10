@@ -148,4 +148,45 @@ class ScholarshipCalculatorTest {
     void davtalt_2_ba_tuunees_olon_udaa() {
         assertEquals(2.5, calc.gpa(new double[]{95, 85, 75, 65}), 0.0001);
     }
+
+    // ---------- Хэсэг D: зааг утгын (boundary value) тестүүд ----------
+    // Branch хамралт 100% боловч спецификацийн ЗААГ утгуудыг (0, 60, 100 гэх мэт) яг
+    // өөрийг нь шалгаагүй байсан тул код алдаатай байсан ч хамралт үүнийг илрүүлээгүй.
+    // Спецификаци: 60-69.99 -> "D" байх ёстой.
+
+    @Test
+    void letterGrade_zaag_0_F() {
+        assertEquals("F", calc.letterGrade(0));
+    }
+
+    @Test
+    void letterGrade_zaag_59_99_F() {
+        assertEquals("F", calc.letterGrade(59.99));
+    }
+
+    @Test
+    void letterGrade_zaag_60_D() {
+        // Спецификаци: 60 оноо "D" байх ёстой.
+        assertEquals("D", calc.letterGrade(60));
+    }
+
+    @Test
+    void letterGrade_zaag_69_99_D() {
+        assertEquals("D", calc.letterGrade(69.99));
+    }
+
+    @Test
+    void letterGrade_zaag_89_99_B() {
+        assertEquals("B", calc.letterGrade(89.99));
+    }
+
+    @Test
+    void letterGrade_zaag_90_A() {
+        assertEquals("A", calc.letterGrade(90));
+    }
+
+    @Test
+    void letterGrade_zaag_100_A() {
+        assertEquals("A", calc.letterGrade(100));
+    }
 }
