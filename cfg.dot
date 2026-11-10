@@ -1,0 +1,48 @@
+digraph scholarship_CFG {
+  rankdir=TB;
+  node [shape=box, fontname="DejaVu Sans", fontsize=11, style=filled, fillcolor="#eef3fb"];
+  edge [fontname="DejaVu Sans", fontsize=9];
+
+  Start [shape=ellipse, fillcolor="#d7f0d7", label="scholarship(gpa, credits, hasViolation)"];
+
+  G1 [label="N1: gpa<0 || gpa>4\n|| credits<0 ?", shape=diamond, fillcolor="#fff2cc"];
+  ThrowGuard [label="throw\nIllegalArgumentException", fillcolor="#f8cecc"];
+
+  G2 [label="N2: hasViolation ?", shape=diamond, fillcolor="#fff2cc"];
+  Ret0a [label="return 0", fillcolor="#d7f0d7"];
+
+  G3a [label="N3a: gpa>=3.8 ?", shape=diamond, fillcolor="#fff2cc"];
+  G3b [label="N3b: credits>=15 ?", shape=diamond, fillcolor="#fff2cc"];
+  Ret100 [label="return 100", fillcolor="#d7f0d7"];
+
+  G4a [label="N4a: gpa>=3.4 ?", shape=diamond, fillcolor="#fff2cc"];
+  G4b [label="N4b: credits>=12 ?", shape=diamond, fillcolor="#fff2cc"];
+  Ret70 [label="return 70", fillcolor="#d7f0d7"];
+
+  G5 [label="N5: gpa>=3.0 ?", shape=diamond, fillcolor="#fff2cc"];
+  Ret50 [label="return 50", fillcolor="#d7f0d7"];
+  Ret0b [label="return 0", fillcolor="#d7f0d7"];
+
+  Start -> G1;
+
+  G1 -> ThrowGuard [label="T (гурван нөхцөлийн ТУС БҮРД)\nS1: gpa=-1 →throws\nS2: gpa=4.1 →throws\nS3: credits=-1 →throws", color="#cc0000", fontcolor="#cc0000"];
+  G1 -> G2 [label="F (бүгд хэвийн)\n(S5..S11 бүгд)"];
+
+  G2 -> Ret0a [label="T\nS5: hasViolation=true →0"];
+  G2 -> G3a [label="F\n(S7..S11)"];
+
+  G3a -> G3b [label="T (gpa>=3.8)\nS7,S8"];
+  G3a -> G4a [label="F (gpa<3.8)\nS9,S10,S11"];
+
+  G3b -> Ret100 [label="T (credits>=15)\nS7: gpa=3.9,cr=16 →100"];
+  G3b -> G4a [label="F (credits<15)\nS8: gpa=3.9,cr=10 →↓"];
+
+  G4a -> G4b [label="T (gpa>=3.4)\nS8 (дамжин ирнэ), S9"];
+  G4a -> G5 [label="F (gpa<3.4)\nS10: gpa=3.2 →↓"];
+
+  G4b -> Ret70 [label="T (credits>=12)\nS9: gpa=3.5,cr=20 →70"];
+  G4b -> G5 [label="F (credits<12)\nS8: gpa=3.9,cr=10 →↓"];
+
+  G5 -> Ret50 [label="T (gpa>=3.0)\nS8: →50\nS10: gpa=3.2 →50"];
+  G5 -> Ret0b [label="F (gpa<3.0)\nS11: gpa=2.5 →0"];
+}
