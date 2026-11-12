@@ -30,7 +30,7 @@ class ScholarshipCalculatorTest {
 
     @Test
     void scholarship_olon_tetgelegt_100_butsna() {
-        // S7 (cfg.png): N3a=T, N3b=T
+        // cfg.png: N3a=T, N3b=T
         assertEquals(100, calc.scholarship(3.9, 16, false));
     }
 
@@ -40,7 +40,7 @@ class ScholarshipCalculatorTest {
     }
 
     // ---------- Хэсэг B: branch 100%-д хүргэх нэмэлт тестүүд ----------
-    // cfg.png дээрх S1..S11 тэмдэглэгээтэй яг таарч байгаа тестийн нэрс.
+    // Эдгээр тест cfg.png дээрх ирмэг бүр дээр нэрээр нь заагдсан.
 
     @Test
     void letterGrade_sul_hyazgaaraas_gadna_exception() {
@@ -75,49 +75,49 @@ class ScholarshipCalculatorTest {
 
     @Test
     void scholarship_gpa_sul_hyazgaaraas_gadna_exception() {
-        // S1 (cfg.png): N1 эхний нөхцөл (gpa<0) -> T
+        // cfg.png: N1 эхний нөхцөл (gpa<0) -> T
         assertThrows(IllegalArgumentException.class, () -> calc.scholarship(-1, 5, false));
     }
 
     @Test
     void scholarship_gpa_deed_hyazgaaraas_gadna_exception() {
-        // S2 (cfg.png): N1 хоёрдугаар нөхцөл (gpa>4) -> T
+        // cfg.png: N1 хоёрдугаар нөхцөл (gpa>4) -> T
         assertThrows(IllegalArgumentException.class, () -> calc.scholarship(4.1, 5, false));
     }
 
     @Test
     void scholarship_credits_sul_hyazgaaraas_gadna_exception() {
-        // S3 (cfg.png): N1 гуравдугаар нөхцөл (credits<0) -> T
+        // cfg.png: N1 гуравдугаар нөхцөл (credits<0) -> T
         assertThrows(IllegalArgumentException.class, () -> calc.scholarship(2.0, -1, false));
     }
 
     @Test
     void scholarship_zorchiltoi_bol_tetgeleggui() {
-        // S5 (cfg.png): N2 (hasViolation) -> T
+        // cfg.png: N2 (hasViolation) -> T
         assertEquals(0, calc.scholarship(3.9, 16, true));
     }
 
     @Test
     void scholarship_gpa38_credits_dutuu_50_butsna() {
-        // S8 (cfg.png): N3a=T, N3b=F, N4a=T, N4b=F, N5=T
+        // cfg.png: N3a=T, N3b=F, N4a=T, N4b=F, N5=T
         assertEquals(50, calc.scholarship(3.9, 10, false));
     }
 
     @Test
     void scholarship_gpa34_credits12_70_butsna() {
-        // S9 (cfg.png): N3a=F, N4a=T, N4b=T
+        // cfg.png: N3a=F, N4a=T, N4b=T
         assertEquals(70, calc.scholarship(3.5, 20, false));
     }
 
     @Test
     void scholarship_gpa34_dooshoo_50_butsna() {
-        // S10 (cfg.png): N3a=F, N4a=F, N5=T
+        // cfg.png: N3a=F, N4a=F, N5=T
         assertEquals(50, calc.scholarship(3.2, 20, false));
     }
 
     @Test
     void scholarship_gpa30_dooshoo_0_butsna() {
-        // S11 (cfg.png): N3a=F, N4a=F, N5=F
+        // cfg.png: N3a=F, N4a=F, N5=F
         assertEquals(0, calc.scholarship(2.5, 5, false));
     }
 

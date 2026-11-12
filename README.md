@@ -40,8 +40,9 @@ OS name: "mac os x", version: "26.6", arch: "x86_64", family: "mac"
 
 ## Хэсэг B — CFG ба Branch 100%
 
-`scholarship()`-ийн CFG-г гараар зурж, зангилаа/ирмэг бүрийг Лекц 9-ийн хэв маягаар тэмдэглэв
-(`cfg.png`). Ирмэг бүрийн хажууд түүнийг дайрч буй тестийн нэрийг бичсэн.
+`scholarship()`-ийн CFG-г `cfg.dot` файлд бичиж, Graphviz-ээр `cfg.png` болгон үүсгэв
+(`dot -Tpng -Gdpi=130 cfg.dot -o cfg.png`). Нөхцөл бүр (N1, N2, N3a, N3b, N4a, N4b, N5) тусдаа
+зангилаа бөгөөд ирмэг бүр дээр түүнийг дайрдаг тестийн методын нэрийг бичсэн.
 
 13 нэмэлт тест бичсэнээр (нийт 18 тест, `results/mvn-verify-B.txt`: `Tests run: 18, Failures: 0`)
 Line болон Branch хамралт хоёулаа **100%** болов (`results/jacoco-B.csv`: `BRANCH_MISSED=0,
